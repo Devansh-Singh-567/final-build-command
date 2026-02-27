@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Lightbulb, Brain, Shield, Link, Leaf, DollarSign, GraduationCap } from "lucide-react";
+import { Lightbulb, Brain, Shield, Link, Leaf, DollarSign, GraduationCap, Heart, Gamepad2 } from "lucide-react";
 
 const domains = [
   { icon: Lightbulb, name: "Open Innovation", desc: "Solve real-world problems with creative, unconventional approaches." },
@@ -9,6 +9,8 @@ const domains = [
   { icon: Leaf, name: "Sustainability Tech", desc: "Engineer solutions for a greener, more resilient planet." },
   { icon: DollarSign, name: "FinTech", desc: "Reimagine financial services with technology-driven innovation." },
   { icon: GraduationCap, name: "EdTech", desc: "Transform learning experiences through technology." },
+  { icon: Heart, name: "HealthTech", desc: "Innovate healthcare solutions for better patient outcomes." },
+  { icon: Gamepad2, name: "GamingTech", desc: "Create immersive gaming experiences with cutting-edge technology." },
 ];
 
 const DomainsSection = () => (

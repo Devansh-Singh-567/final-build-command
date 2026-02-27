@@ -12,14 +12,18 @@ const HeroSection = () => {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cosmic-purple/10 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
           <p className="font-heading text-xs tracking-[0.4em] text-primary mb-6 uppercase">
-            Raisoni Group of Institutions Presents
+            G.H. Raisoni International Skill Tech University, Pune
+          </p>
+
+          <p className="font-heading text-2xl sm:text-3xl md:text-4xl text-primary mb-6 uppercase tracking-wider">
+            presents
           </p>
 
           <h1 className="font-heading text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black leading-none text-metallic mb-4">
@@ -45,12 +49,14 @@ const HeroSection = () => {
           transition={{ delay: 0.8, duration: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <button
-            onClick={() => scrollTo("register")}
-            className="px-8 py-4 rounded-lg bg-primary text-primary-foreground font-heading text-sm font-bold uppercase tracking-widest animate-pulse-glow hover:scale-105 transition-transform duration-300"
+          <a
+            href="https://unstop.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-4 rounded-lg bg-primary text-primary-foreground font-heading text-sm font-bold uppercase tracking-widest animate-pulse-glow hover:scale-105 transition-transform duration-300 inline-block"
           >
             Register Now
-          </button>
+          </a>
           <button
             onClick={() => scrollTo("domains")}
             className="px-8 py-4 rounded-lg border border-primary/40 text-primary font-heading text-sm font-bold uppercase tracking-widest hover:bg-primary/10 hover:border-primary/60 transition-all duration-300"

@@ -2,14 +2,14 @@ import { motion } from "framer-motion";
 import { Trophy, Award, Medal, Star } from "lucide-react";
 
 const prizes = [
-  { icon: Trophy, title: "Winner", prize: "₹50,000", color: "from-yellow-500/20 to-yellow-600/5", border: "border-yellow-500/30" },
-  { icon: Award, title: "1st Runner-Up", prize: "₹30,000", color: "from-gray-300/10 to-gray-400/5", border: "border-gray-400/30" },
-  { icon: Medal, title: "2nd Runner-Up", prize: "₹20,000", color: "from-amber-700/10 to-amber-800/5", border: "border-amber-700/30" },
+  { icon: Trophy, title: "First Prize", prize: "₹50,000", color: "from-yellow-500/20 to-yellow-600/5", border: "border-yellow-500/30" },
+  { icon: Award, title: "Second Prize", prize: "₹30,000", color: "from-gray-300/10 to-gray-400/5", border: "border-gray-400/30" },
+  { icon: Medal, title: "Third Prize", prize: "₹20,000", color: "from-amber-700/10 to-amber-800/5", border: "border-amber-700/30" },
 ];
 
 const specials = [
-  { icon: Star, title: "Best Innovation" },
-  { icon: Star, title: "Best Design" },
+  { icon: Star, title: "Best Innovation Idea", prize: "₹15,000" },
+  { icon: Star, title: "Best AI Implementation", prize: "₹15,000" },
 ];
 
 const PrizesSection = () => (
@@ -48,10 +48,27 @@ const PrizesSection = () => (
         {specials.map((s) => (
           <div key={s.title} className="glass-panel rounded-xl p-5 text-center">
             <s.icon className="mx-auto mb-2 text-primary" size={24} />
-            <p className="font-heading text-xs font-bold text-foreground">{s.title}</p>
+            <p className="font-heading text-xs font-bold text-foreground mb-1">{s.title}</p>
+            <p className="font-heading text-sm font-bold text-primary">{s.prize}</p>
           </div>
         ))}
       </div>
+
+      {/* Total Prize Pool */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.4 }}
+        className="mt-10 text-center"
+      >
+        <div className="inline-flex items-center gap-3 px-6 py-3 rounded-lg border border-primary/30 bg-primary/5">
+          <Trophy className="text-primary" size={20} />
+          <span className="text-primary font-heading text-lg font-bold">
+            Total Prize Pool: ₹1,40,000
+          </span>
+        </div>
+      </motion.div>
     </div>
   </section>
 );

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
-  "Home", "About", "Domains", "Timeline", "Prizes", "FAQs", "Sponsors", "Contact"
+  "Home", "About", "Domains", "Timeline", "Prizes", "Results", "FAQs", "Contact", "Location"
 ];
 
 const Navbar = () => {
@@ -46,12 +46,6 @@ const Navbar = () => {
                 {item}
               </button>
             ))}
-            <button
-              onClick={() => scrollTo("register")}
-              className="ml-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider hover:shadow-[0_0_20px_hsl(var(--primary)/0.5)] transition-all duration-300"
-            >
-              Register
-            </button>
           </div>
 
           {/* Mobile toggle */}
@@ -75,12 +69,6 @@ const Navbar = () => {
                 {item}
               </button>
             ))}
-            <button
-              onClick={() => scrollTo("register")}
-              className="mt-2 w-full px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wider"
-            >
-              Register
-            </button>
           </div>
         )}
       </div>

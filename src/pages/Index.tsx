@@ -5,10 +5,10 @@ import AboutSection from "@/components/AboutSection";
 import DomainsSection from "@/components/DomainsSection";
 import TimelineSection from "@/components/TimelineSection";
 import PrizesSection from "@/components/PrizesSection";
+import SelectedTeams from "@/components/SelectedTeams";
 import FAQSection from "@/components/FAQSection";
-import SponsorsSection from "@/components/SponsorsSection";
 import ContactSection from "@/components/ContactSection";
-import RegisterSection from "@/components/RegisterSection";
+import LocationSection from "@/components/LocationSection";
 import Footer from "@/components/Footer";
 
 const Index = () => (
@@ -20,10 +20,10 @@ const Index = () => (
     <DomainsSection />
     <TimelineSection />
     <PrizesSection />
+    <SelectedTeams />
     <FAQSection />
-    <SponsorsSection />
     <ContactSection />
-    <RegisterSection />
+    <LocationSection />
     <Footer />
   </div>
 );
