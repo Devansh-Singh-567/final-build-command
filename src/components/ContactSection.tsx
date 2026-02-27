@@ -1,90 +1,80 @@
-import { motion } from "framer-motion";
-import { Mail, Phone } from "lucide-react";
 import { useState } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { Mail, Phone } from "lucide-react";
 
 const ContactSection = () => {
-  const [form, setForm] = useState({ name: "", email: "", college: "", type: "General", message: "" });
+  const ref = useScrollReveal();
+  const [form, setForm] = useState({ name: "", email: "", college: "", category: "General", message: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // placeholder
+    // Placeholder
     alert("Message sent! We'll get back to you soon.");
   };
 
   return (
-    <section id="contact" className="relative py-24 grid-overlay">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="font-heading text-3xl md:text-5xl font-bold text-metallic mb-4">
-            Contact
-          </h2>
-          <div className="section-divider w-48 mx-auto" />
-        </motion.div>
+    <section id="contact" className="py-24 px-6 relative" ref={ref}>
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-16 fade-in-section">
+          <p className="font-heading text-xs tracking-[0.3em] uppercase text-amber mb-3">Comms</p>
+          <h2 className="font-display text-5xl md:text-6xl text-metallic">Contact</h2>
+          <div className="section-divider mt-6 mx-auto max-w-md" />
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-10">
-          <motion.form
-            onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-4"
+        <form onSubmit={handleSubmit} className="fade-in-section space-y-4">
+          <input
+            type="text"
+            placeholder="Name"
+            required
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            className="w-full bg-card border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-amber transition-colors font-body"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="w-full bg-card border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-amber transition-colors font-body"
+          />
+          <input
+            type="text"
+            placeholder="College"
+            value={form.college}
+            onChange={(e) => setForm({ ...form, college: e.target.value })}
+            className="w-full bg-card border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-amber transition-colors font-body"
+          />
+          <select
+            value={form.category}
+            onChange={(e) => setForm({ ...form, category: e.target.value })}
+            className="w-full bg-card border border-border rounded-sm px-4 py-3 text-sm text-foreground focus:outline-none focus:border-amber transition-colors font-body"
           >
-            {(["name", "email", "college"] as const).map((field) => (
-              <input
-                key={field}
-                type={field === "email" ? "email" : "text"}
-                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                required
-                value={form[field]}
-                onChange={(e) => setForm({ ...form, [field]: e.target.value })}
-                className="w-full bg-secondary/50 border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
-              />
-            ))}
-            <select
-              value={form.type}
-              onChange={(e) => setForm({ ...form, type: e.target.value })}
-              className="w-full bg-secondary/50 border border-border rounded-lg px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary/50 transition-colors"
-            >
-              {["General", "Sponsorship", "Technical", "Other"].map((t) => (
-                <option key={t} value={t}>{t}</option>
-              ))}
-            </select>
-            <textarea
-              placeholder="Your message..."
-              required
-              rows={4}
-              value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="w-full bg-secondary/50 border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors resize-none"
-            />
-            <button
-              type="submit"
-              className="w-full px-6 py-3 rounded-lg bg-primary text-primary-foreground font-heading text-xs font-bold uppercase tracking-widest hover:shadow-[0_0_20px_hsl(var(--primary)/0.5)] transition-all"
-            >
-              Send Message
-            </button>
-          </motion.form>
+            <option>General</option>
+            <option>Technical</option>
+            <option>Sponsorship</option>
+            <option>Other</option>
+          </select>
+          <textarea
+            placeholder="Message"
+            rows={4}
+            required
+            value={form.message}
+            onChange={(e) => setForm({ ...form, message: e.target.value })}
+            className="w-full bg-card border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-amber transition-colors resize-none font-body"
+          />
+          <button type="submit" className="btn-amber rounded-sm w-full">
+            Send Message
+          </button>
+        </form>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <div className="glass-panel rounded-xl p-6">
-              <Mail className="text-primary mb-2" size={20} />
-              <p className="text-sm text-foreground">hackathon@raisoni.net</p>
-            </div>
-            <div className="glass-panel rounded-xl p-6">
-              <Phone className="text-primary mb-2" size={20} />
-              <p className="text-sm text-foreground">+91 98765 43210</p>
-            </div>
-          </motion.div>
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12 fade-in-section text-muted-foreground text-sm">
+          <a href="mailto:hackathon@raisoni.net" className="flex items-center gap-2 hover:text-amber transition-colors">
+            <Mail className="w-4 h-4" /> hackathon@raisoni.net
+          </a>
+          <a href="tel:+919876543210" className="flex items-center gap-2 hover:text-amber transition-colors">
+            <Phone className="w-4 h-4" /> +91 98765 43210
+          </a>
         </div>
       </div>
     </section>

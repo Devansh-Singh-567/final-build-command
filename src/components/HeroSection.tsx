@@ -1,73 +1,90 @@
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import heroBg from "@/assets/hero-bg.png";
 
 const HeroSection = () => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 300);
+    return () => clearTimeout(t);
+  }, []);
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Nebula fog */}
-      <div className="absolute inset-0 bg-gradient-to-b from-cosmic-purple/20 via-transparent to-space-deep/80 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cosmic-purple/10 rounded-full blur-[100px] pointer-events-none" />
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      />
 
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
-          <p className="font-heading text-xs tracking-[0.4em] text-primary mb-6 uppercase">
-            G.H. Raisoni International Skill Tech University, Pune
-          </p>
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-background/70" />
 
-          <p className="font-heading text-2xl sm:text-3xl md:text-4xl text-primary mb-6 uppercase tracking-wider">
-            presents
-          </p>
+      {/* Lightning flicker */}
+      <div className="absolute inset-0 bg-foreground/5 animate-lightning pointer-events-none" />
 
-          <h1 className="font-heading text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black leading-none text-metallic mb-4">
-            THE FINAL
-            <br />
-            BUILD
-            <span className="text-primary"> 1.0</span>
-          </h1>
-        </motion.div>
+      {/* Fog layer */}
+      <div className="absolute bottom-0 left-0 right-0 h-64 animate-fog opacity-20"
+        style={{
+          background: "linear-gradient(transparent, hsl(0 0% 5% / 0.8))",
+        }}
+      />
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-muted-foreground text-lg sm:text-xl font-light tracking-wide mt-6 mb-10"
-        >
+      {/* Bat emblem glow behind text */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="w-[500px] h-[500px] opacity-[0.06]"
+          style={{
+            background: `radial-gradient(ellipse, hsl(44 72% 47% / 0.4), transparent 70%)`,
+          }}
+        />
+      </div>
+
+      {/* Content */}
+      <div
+        className={`relative z-10 text-center px-6 transition-all duration-[2000ms] ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+      >
+        <p className="font-heading text-xs tracking-[0.3em] uppercase text-muted-foreground mb-2">
+          G.H. Raisoni International Skill Tech University, Pune
+        </p>
+        <p className="font-heading text-xs tracking-[0.2em] uppercase text-muted-foreground mb-8">
+          presents
+        </p>
+
+        <h1 className="font-display text-metallic leading-none mb-2">
+          <span className="block text-7xl md:text-9xl lg:text-[10rem]">THE FINAL</span>
+          <span className="block text-7xl md:text-9xl lg:text-[10rem] text-metallic-amber">BUILD 1.0</span>
+        </h1>
+
+        <p className="font-heading text-sm md:text-base tracking-[0.15em] text-muted-foreground mt-6 mb-12">
           24 Hours. One Solution. Infinite Possibilities.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="https://unstop.com"
+            href="#"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 rounded-lg bg-primary text-primary-foreground font-heading text-sm font-bold uppercase tracking-widest animate-pulse-glow hover:scale-105 transition-transform duration-300 inline-block"
+            className="btn-amber animate-pulse-glow rounded-sm inline-block text-center"
           >
             Register Now
           </a>
           <button
             onClick={() => scrollTo("domains")}
-            className="px-8 py-4 rounded-lg border border-primary/40 text-primary font-heading text-sm font-bold uppercase tracking-widest hover:bg-primary/10 hover:border-primary/60 transition-all duration-300"
+            className="btn-amber-outline rounded-sm"
           >
             Explore Domains
           </button>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+      {/* Bottom gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };

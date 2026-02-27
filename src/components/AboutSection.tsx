@@ -1,61 +1,41 @@
-import { motion } from "framer-motion";
-import { Monitor, Users } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
-const AboutSection = () => (
-  <section id="about" className="relative py-24 grid-overlay">
-    <div className="container mx-auto px-4 max-w-6xl">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
-      >
-        <h2 className="font-heading text-3xl md:text-5xl font-bold text-metallic mb-4">
-          About the Mission
-        </h2>
-        <div className="section-divider w-48 mx-auto" />
-      </motion.div>
+const AboutSection = () => {
+  const ref = useScrollReveal();
 
-      <div className="grid md:grid-cols-2 gap-8">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="glass-panel rounded-xl p-8"
-        >
-          <Monitor className="text-primary mb-4" size={32} />
-          <h3 className="font-heading text-lg font-bold text-foreground mb-3">
-            Phase 1 — Online Screening
-          </h3>
-          <p className="text-muted-foreground leading-relaxed">
-            Submit your innovative solutions through Unstop. Top teams will be
-            shortlisted based on creativity, feasibility, and technical depth.
-            This is your gateway to the grand finale.
-          </p>
-        </motion.div>
+  return (
+    <section id="about" className="py-24 px-6 relative" ref={ref}>
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-16 fade-in-section">
+          <p className="font-heading text-xs tracking-[0.3em] uppercase text-amber mb-3">Classified Briefing</p>
+          <h2 className="font-display text-5xl md:text-6xl text-metallic">About the Mission</h2>
+          <div className="section-divider mt-6 mx-auto max-w-md" />
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="glass-panel rounded-xl p-8"
-        >
-          <Users className="text-primary mb-4" size={32} />
-          <h3 className="font-heading text-lg font-bold text-foreground mb-3">
-            Phase 2 — 24-Hour Offline Finale
-          </h3>
-          <p className="text-muted-foreground leading-relaxed">
-            Shortlisted teams converge for an intense 24-hour build sprint.
-            Code, create, and compete in a high-energy environment with mentors,
-            workshops, and everything you need to ship your vision.
-          </p>
-        </motion.div>
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Phase 1 */}
+          <div className="slide-in-left tactical-card p-8">
+            <p className="font-heading text-xs tracking-[0.2em] text-amber mb-4">PHASE 01</p>
+            <h3 className="font-display text-3xl text-foreground mb-4">Online Screening</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Teams submit innovative ideas across 9 cutting-edge domains. A panel of experts evaluates
+              creativity, feasibility, and impact. Only the strongest move forward.
+            </p>
+          </div>
+
+          {/* Phase 2 */}
+          <div className="slide-in-right tactical-card p-8 blueprint-grid">
+            <p className="font-heading text-xs tracking-[0.2em] text-amber mb-4">PHASE 02</p>
+            <h3 className="font-display text-3xl text-foreground mb-4">24-Hour Offline Finale</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Shortlisted teams converge at the command center for an intense 24-hour build marathon.
+              Mentorship, resources, and an electrifying atmosphere fuel the final push.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default AboutSection;

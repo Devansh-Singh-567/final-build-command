@@ -1,70 +1,68 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState, useRef } from "react";
 
 const BackgroundMusic = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Auto-play when component mounts
-    const audio = new Audio('/space-music.mp3');
+    const audio = new Audio("/music.mp3");
     audio.loop = true;
-    audio.volume = 0.3; // Set volume to 30%
-    
-    // Try to autoplay (may be blocked by browser)
-    const playPromise = audio.play();
-    
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch((error) => {
-          console.log('Autoplay was prevented:', error);
-          setIsPlaying(false);
-        });
-    }
+    audio.volume = 0.3; // Set volume to 30% to avoid being too loud
+    audioRef.current = audio;
+
+    const playMusic = async () => {
+      try {
+        await audio.play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.log("Auto-play blocked by browser, will play on first interaction");
+        // Some browsers require user interaction before playing audio
+        // We'll add a click handler to enable music
+        const enableAudio = () => {
+          audio.play().then(() => setIsPlaying(true)).catch(console.error);
+          document.removeEventListener("click", enableAudio);
+        };
+        document.addEventListener("click", enableAudio, { once: true });
+      }
+    };
+
+    playMusic();
 
     return () => {
       audio.pause();
-      audio.src = '';
+      audio.currentTime = 0;
     };
   }, []);
 
   const toggleMusic = () => {
-    const audio = document.querySelector('audio') as HTMLAudioElement;
-    if (audio) {
+    if (audioRef.current) {
       if (isPlaying) {
-        audio.pause();
+        audioRef.current.pause();
+        setIsPlaying(false);
       } else {
-        audio.play();
+        audioRef.current.play().then(() => setIsPlaying(true)).catch(console.error);
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
   return (
-    <>
-      <audio loop>
-        <source src="/space-music.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-      
-      {/* Music toggle button */}
+    <div className="fixed bottom-4 right-4 z-50">
       <button
         onClick={toggleMusic}
-        className="fixed bottom-4 right-4 z-50 p-3 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 text-primary hover:bg-primary/30 transition-all duration-300"
-        aria-label="Toggle music"
+        className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-full p-2 hover:bg-white/30 transition-colors"
+        aria-label={isPlaying ? "Pause music" : "Play music"}
       >
         {isPlaying ? (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
           </svg>
         ) : (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8 5v14l11-7z"/>
+          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
           </svg>
         )}
       </button>
-    </>
+    </div>
   );
 };
 

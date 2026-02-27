@@ -1,51 +1,51 @@
-import { motion } from "framer-motion";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const milestones = [
-  { label: "Registrations Open", date: "Mar 2026" },
-  { label: "Submission Deadline", date: "Apr 2026" },
-  { label: "Shortlist Announcement", date: "Apr 2026" },
-  { label: "24-Hour Offline Hackathon", date: "May 2026" },
-  { label: "Final Evaluation & Awards", date: "May 2026" },
+  { date: "Mar 2026", label: "Registrations Open" },
+  { date: "Apr 2026", label: "Submission Deadline" },
+  { date: "Apr 2026", label: "Shortlist Announcement" },
+  { date: "May 2026", label: "24-Hour Offline Hackathon" },
+  { date: "May 2026", label: "Final Evaluation & Awards" },
 ];
 
-const TimelineSection = () => (
-  <section id="timeline" className="relative py-24 grid-overlay">
-    <div className="container mx-auto px-4 max-w-5xl">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <h2 className="font-heading text-3xl md:text-5xl font-bold text-metallic mb-4">
-          Mission Timeline
-        </h2>
-        <div className="section-divider w-48 mx-auto" />
-      </motion.div>
+const TimelineSection = () => {
+  const ref = useScrollReveal();
 
-      <div className="relative">
-        {/* Line */}
-        <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent -translate-y-1/2" />
+  return (
+    <section id="timeline" className="py-24 px-6 relative blueprint-grid" ref={ref}>
+      <div className="max-w-3xl mx-auto" style={{ maxWidth: "48rem" }}>
+        <div className="text-center mb-16 fade-in-section">
+          <p className="font-heading text-xs tracking-[0.3em] uppercase text-amber mb-3">Mission Timeline</p>
+          <h2 className="font-display text-5xl md:text-6xl text-metallic">Timeline</h2>
+          <div className="section-divider mt-6 mx-auto max-w-md" />
+        </div>
 
-        <div className="grid md:grid-cols-5 gap-8 md:gap-4">
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-border" />
+
           {milestones.map((m, i) => (
-            <motion.div
-              key={m.label}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className="text-center relative"
+            <div
+              key={i}
+              className={`fade-in-section relative flex items-center mb-12 last:mb-0 ${
+                i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+              }`}
+              style={{ transitionDelay: `${i * 150}ms` }}
             >
-              <div className="w-4 h-4 rounded-full bg-primary mx-auto mb-4 shadow-[0_0_20px_hsl(var(--primary)/0.5)] relative z-10" />
-              <h4 className="font-heading text-xs font-bold text-foreground mb-1">{m.label}</h4>
-              <p className="text-muted-foreground text-xs">{m.date}</p>
-            </motion.div>
+              {/* Node */}
+              <div className="absolute left-6 md:left-1/2 w-3 h-3 rounded-full bg-amber -translate-x-1/2 shadow-amber z-10" />
+
+              {/* Content */}
+              <div className={`ml-16 md:ml-0 md:w-1/2 ${i % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
+                <p className="font-heading text-xs tracking-[0.2em] text-amber mb-1">{m.date}</p>
+                <p className="font-heading text-base tracking-wider uppercase text-foreground">{m.label}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default TimelineSection;

@@ -1,53 +1,47 @@
-import { motion } from "framer-motion";
-import { Lightbulb, Brain, Shield, Link, Leaf, DollarSign, GraduationCap, Heart, Gamepad2 } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import {
+  Lightbulb, Brain, Shield, Link, Leaf, Landmark, GraduationCap, HeartPulse, Gamepad2,
+} from "lucide-react";
 
 const domains = [
-  { icon: Lightbulb, name: "Open Innovation", desc: "Solve real-world problems with creative, unconventional approaches." },
-  { icon: Brain, name: "AI & ML", desc: "Build intelligent systems that learn, adapt, and transform industries." },
-  { icon: Shield, name: "Cybersecurity", desc: "Defend digital frontiers with next-gen security solutions." },
-  { icon: Link, name: "Web3 & Blockchain", desc: "Decentralize trust and reshape digital ownership." },
-  { icon: Leaf, name: "Sustainability Tech", desc: "Engineer solutions for a greener, more resilient planet." },
-  { icon: DollarSign, name: "FinTech", desc: "Reimagine financial services with technology-driven innovation." },
-  { icon: GraduationCap, name: "EdTech", desc: "Transform learning experiences through technology." },
-  { icon: Heart, name: "HealthTech", desc: "Innovate healthcare solutions for better patient outcomes." },
-  { icon: Gamepad2, name: "GamingTech", desc: "Create immersive gaming experiences with cutting-edge technology." },
+  { name: "Open Innovation", icon: Lightbulb },
+  { name: "AI & ML", icon: Brain },
+  { name: "Cybersecurity", icon: Shield },
+  { name: "Web3 & Blockchain", icon: Link },
+  { name: "Sustainability Tech", icon: Leaf },
+  { name: "FinTech", icon: Landmark },
+  { name: "EdTech", icon: GraduationCap },
+  { name: "HealthTech", icon: HeartPulse },
+  { name: "GamingTech", icon: Gamepad2 },
 ];
 
-const DomainsSection = () => (
-  <section id="domains" className="relative py-24">
-    <div className="container mx-auto px-4 max-w-6xl">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <h2 className="font-heading text-3xl md:text-5xl font-bold text-metallic mb-4">
-          Domains
-        </h2>
-        <div className="section-divider w-48 mx-auto" />
-      </motion.div>
+const DomainsSection = () => {
+  const ref = useScrollReveal();
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {domains.map((d, i) => (
-          <motion.div
-            key={d.name}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.08 }}
-            className="glass-panel rounded-xl p-6 group cursor-pointer"
-          >
-            <d.icon className="text-primary mb-3 group-hover:scale-110 transition-transform" size={28} />
-            <h3 className="font-heading text-sm font-bold text-foreground mb-2">{d.name}</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-h-0 group-hover:max-h-20 overflow-hidden">
-              {d.desc}
-            </p>
-          </motion.div>
-        ))}
+  return (
+    <section id="domains" className="py-24 px-6 relative" ref={ref}>
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16 fade-in-section">
+          <p className="font-heading text-xs tracking-[0.3em] uppercase text-amber mb-3">Operation Fields</p>
+          <h2 className="font-display text-5xl md:text-6xl text-metallic">Domains</h2>
+          <div className="section-divider mt-6 mx-auto max-w-md" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {domains.map((d, i) => (
+            <div
+              key={d.name}
+              className="fade-in-section tactical-card p-6 flex items-center gap-4 cursor-default group transition-all duration-300"
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
+              <d.icon className="w-6 h-6 text-amber opacity-70 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
+              <span className="font-heading text-sm tracking-widest uppercase text-foreground">{d.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default DomainsSection;

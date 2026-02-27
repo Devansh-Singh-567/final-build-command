@@ -1,77 +1,74 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
 
-const navItems = [
-  "Home", "About", "Domains", "Timeline", "Prizes", "Results", "FAQs", "Contact", "Location"
-];
+const links = ["Home", "About", "Domains", "Timeline", "Rounds", "Prizes", "Results", "FAQs", "Location"];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const handler = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
   }, []);
 
   const scrollTo = (id: string) => {
-    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById(id.toLowerCase());
+    el?.scrollIntoView({ behavior: "smooth" });
     setMobileOpen(false);
   };
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "py-2" : "py-4"
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
+        scrolled ? "bg-background/95 backdrop-blur-sm shadow-lg" : "bg-background/30 backdrop-blur-sm"
       }`}
     >
-      <div className="container mx-auto px-4">
-        <div className="glass rounded-xl px-6 py-3 flex items-center justify-between">
-          <span
-            className="font-heading text-sm font-bold tracking-wider text-primary cursor-pointer"
-            onClick={() => scrollTo("home")}
-          >
-            TFB 1.0
-          </span>
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <span className="font-display text-xl tracking-wider text-amber">TFB 1.0</span>
 
-          {/* Desktop */}
-          <div className="hidden lg:flex items-center gap-6">
-            {navItems.map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollTo(item)}
-                className="text-xs font-medium tracking-wide text-muted-foreground hover:text-primary transition-colors duration-300 uppercase"
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            className="lg:hidden text-foreground"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+        {/* Desktop */}
+        <div className="hidden lg:flex gap-6">
+          {links.map((l) => (
+            <button
+              key={l}
+              onClick={() => scrollTo(l)}
+              className="font-heading text-xs tracking-widest uppercase text-muted-foreground hover:text-amber transition-colors duration-300"
+            >
+              {l}
+            </button>
+          ))}
         </div>
 
-        {/* Mobile menu */}
-        {mobileOpen && (
-          <div className="lg:hidden glass rounded-xl mt-2 p-4 animate-fade-in">
-            {navItems.map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollTo(item)}
-                className="block w-full text-left py-2 text-sm text-muted-foreground hover:text-primary transition-colors uppercase tracking-wide"
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Mobile toggle */}
+        <button
+          className="lg:hidden text-foreground"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            {mobileOpen ? (
+              <path d="M18 6L6 18M6 6l12 12" />
+            ) : (
+              <path d="M3 12h18M3 6h18M3 18h18" />
+            )}
+          </svg>
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="lg:hidden bg-background/95 backdrop-blur-sm border-t border-border px-6 py-4 flex flex-col gap-3">
+          {links.map((l) => (
+            <button
+              key={l}
+              onClick={() => scrollTo(l)}
+              className="font-heading text-sm tracking-widest uppercase text-muted-foreground hover:text-amber transition-colors text-left"
+            >
+              {l}
+            </button>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };
