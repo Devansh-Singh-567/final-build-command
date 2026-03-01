@@ -28,7 +28,7 @@ const AboutSection = () => {
             <p className="font-heading text-xs tracking-[0.2em] text-amber mb-4">PHASE 02</p>
             <h3 className="font-display text-3xl text-foreground mb-4">24-Hour Offline Finale</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Shortlisted teams converge at the command center for an intense 24-hour build marathon.
+              Shortlisted 20 teams converge at the command center for an intense 24-hour build marathon.
               Mentorship, resources, and an electrifying atmosphere fuel the final push.
             </p>
           </div>

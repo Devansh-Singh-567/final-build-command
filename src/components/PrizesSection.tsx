@@ -7,8 +7,8 @@ const mainPrizes = [
 ];
 
 const specialAwards = [
-  { title: "Best Innovative Idea", amount: "₹12,000", icon: "💡" },
-  { title: "Best AI Solution Award", amount: "₹12,000", icon: "🤖" },
+  { title: "Best Innovative Idea", amount: "₹12,000", icon: "◆" },
+  { title: "Best AI Solution Award", amount: "₹12,000", icon: "◈" },
 ];
 
 const totalPrizePool = 50000 + 30000 + 20000 + 12000 + 12000;
@@ -52,7 +52,7 @@ const PrizesSection = () => {
                 <div className="mb-4">
                   <div className="w-16 h-16 mx-auto bg-gradient-to-br from-amber/20 to-amber/10 rounded-full flex items-center justify-center border border-amber/30">
                     <span className="text-2xl">
-                      {prize.position === "1st" ? "🏆" : prize.position === "2nd" ? "🥈" : "🥉"}
+                      {prize.position === "1st" ? "♦" : prize.position === "2nd" ? "◆" : "◉"}
                     </span>
                   </div>
                 </div>

@@ -5,28 +5,28 @@ const rounds = [
     phase: "Day 1 - 9:00 AM",
     title: "Inauguration",
     description: "THE FINAL BUILD 1.0 kicks off with opening ceremony and hackathon announcement. Get ready for an exciting journey ahead!",
-    icon: "🎯",
+    icon: "◇",
     color: "green"
   },
   {
     phase: "Day 1 - 6:00 PM to 7:00 PM",
     title: "Mentoring Round",
     description: "Non-marking mentorship session where industry experts provide valuable feedback and suggestions on project improvements and upgrades.",
-    icon: "👥",
+    icon: "◉",
     color: "blue"
   },
   {
     phase: "Day 2 - 8:00 AM to 10:00 AM",
     title: "Judging Round",
     description: "Formal evaluation round where all teams present their projects. Only the top 10 teams will advance to the finals based on innovation, technical complexity, and feasibility.",
-    icon: "🔥",
+    icon: "◆",
     color: "orange"
   },
   {
     phase: "Day 2 - Final Round",
     title: "Final Crowned - Jury Presentation",
     description: "The top 10 finalists present their complete solutions to the jury panel. Three winners for main prizes and two teams for special awards will be selected.",
-    icon: "🏆",
+    icon: "♦",
     color: "amber"
   }
 ];
@@ -152,7 +152,7 @@ const RoundsSection = () => {
                 style={{ transitionDelay: `${(index + 4) * 100}ms` }}
               >
                 <div className="mb-3">
-                  <span className="text-2xl">🍽️</span>
+                  <span className="text-2xl">◆</span>
                 </div>
                 <h4 className="font-heading text-lg text-metallic mb-3">{mealDay.day}</h4>
                 <div className="space-y-2">

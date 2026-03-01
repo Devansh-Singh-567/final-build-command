@@ -8,6 +8,7 @@ import TimelineSection from "@/components/TimelineSection";
 import RoundsSection from "@/components/RoundsSection";
 import PrizesSection from "@/components/PrizesSection";
 import ResultsSection from "@/components/ResultsSection";
+import ParticipantsSection from "@/components/ParticipantsSection";
 import FAQSection from "@/components/FAQSection";
 import LocationSection from "@/components/LocationSection";
 import RainOverlay from "@/components/RainOverlay";
@@ -33,6 +34,7 @@ const Index = () => {
       <RoundsSection />
       <PrizesSection />
       <ResultsSection />
+      <ParticipantsSection />
       <FAQSection />
       <LocationSection />
     </div>

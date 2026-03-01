@@ -39,6 +39,25 @@ const LandingPage = () => {
     }
   }, [showInitialVideo]);
 
+  // Cleanup audio and video when component unmounts
+  useEffect(() => {
+    return () => {
+      // Stop all audio elements
+      const audioElements = document.querySelectorAll('audio');
+      audioElements.forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+      
+      // Stop all video elements
+      const videoElements = document.querySelectorAll('video');
+      videoElements.forEach(video => {
+        video.pause();
+        video.currentTime = 0;
+      });
+    };
+  }, []);
+
   const handleEnterSite = () => {
     setIsTransitioning(true);
     setShowVideo(true);
@@ -157,24 +176,29 @@ const LandingPage = () => {
                   autoPlay
                   muted
                   playsInline
+                  onLoadedMetadata={() => {
+                    if (videoRef.current) {
+                      videoRef.current.currentTime = 3;
+                    }
+                  }}
                 />
               )}
             </div>
           )}
 
           {/* Main content */}
-          <div className={`relative z-10 min-h-screen flex flex-col items-center justify-center px-4 ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
+          <div className={`relative z-10 h-screen flex flex-col items-center justify-center px-4 ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
             
             {/* Main title */}
-            <div className={`text-center mb-8 ${showContent ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
-              <h1 className="font-display text-4xl md:text-7xl text-yellow-400 mb-4 tracking-wider" style={{ textShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
+            <div className={`text-center mb-2 ${showContent ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
+              <h1 className="font-display text-2xl md:text-7xl text-yellow-400 mb-1 tracking-wider" style={{ textShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
                 The Final Build 1.0
               </h1>
             </div>
 
             {/* Tagline */}
-            <div className={`text-center mb-12 ${showContent ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
-              <p className="font-heading text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-light tracking-wide" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.9)' }}>
+            <div className={`text-center mb-2 ${showContent ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
+              <p className="font-heading text-base md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-light tracking-wide" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.9)' }}>
                 "The Night Needs Coders."
               </p>
             </div>
@@ -193,8 +217,10 @@ const LandingPage = () => {
             </div>
 
             {/* Copyright notice */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-xs">
-              Copyright © 2026 <a href="https://linkedin.com/in/devansh050607" className="text-red-500 hover:text-red-400 transition-colors">Devansh Singh</a> | GHRISTU, Pune
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white text-[10px] md:text-xs">
+              <span className="text-yellow-400 hover:text-yellow-300 transition-colors whitespace-nowrap">
+                © 2026 <a href="https://linkedin.com/in/devansh050607" className="text-yellow-400 hover:text-yellow-300 transition-colors">Devansh Singh</a> | GHRISTU, Pune
+              </span>
             </div>
           </div>
         </>

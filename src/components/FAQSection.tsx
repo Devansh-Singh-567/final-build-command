@@ -14,6 +14,7 @@ const faqs = [
   { q: "Can team members be from different colleges?", a: "Yes, cross-college teams are allowed and encouraged." },
   { q: "Will there be mentors available?", a: "Yes, industry experts and faculty mentors will be available throughout the 24-hour hackathon." },
   { q: "How will projects be evaluated?", a: "Projects will be evaluated on innovation, technical complexity, feasibility, design, and presentation." },
+  { q: "Will reimbursement be provided for travel expenses?", a: "No, travel reimbursement will not be provided for participants. Teams are responsible for their own transportation arrangements to and from the venue." },
 ];
 
 const FAQSection = () => {

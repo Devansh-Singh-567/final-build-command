@@ -75,7 +75,7 @@ const LocationSection = () => {
         {/* Copyright notice */}
         <div className="text-center mt-16 fade-in-section">
           <p className="text-white text-xs">
-            Copyright © 2026 <a href="https://linkedin.com/in/devansh050607" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-400 transition-colors">Devansh Singh</a> | GHRISTU, Pune
+            Copyright © 2026 <a href="https://linkedin.com/in/devansh050607" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:text-yellow-300 transition-colors">Devansh Singh</a> | GHRISTU, Pune
           </p>
         </div>
       </div>

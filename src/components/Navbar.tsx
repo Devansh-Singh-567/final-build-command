@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const links = ["Home", "About", "Domains", "Timeline", "Rounds", "Prizes", "Results", "FAQs", "Location"];
+const links = ["Home", "About", "Domains", "Timeline", "Rounds", "Prizes", "Results", "Participants", "FAQs", "Location"];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -13,6 +15,11 @@ const Navbar = () => {
   }, []);
 
   const scrollTo = (id: string) => {
+    if (id === "Participants") {
+      navigate("/teams");
+      setMobileOpen(false);
+      return;
+    }
     const el = document.getElementById(id.toLowerCase());
     el?.scrollIntoView({ behavior: "smooth" });
     setMobileOpen(false);
