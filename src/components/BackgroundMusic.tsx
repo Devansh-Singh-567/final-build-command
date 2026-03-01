@@ -3,36 +3,59 @@ import { useEffect, useState, useRef } from "react";
 const BackgroundMusic = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const thunderAudioRef = useRef<HTMLAudioElement | null>(null);
+  const thunderIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
-    const audio = new Audio("/music.mp3");
+    const audio = new Audio("/landing.mp3");
     audio.loop = true;
-    audio.volume = 0.3; // Set volume to 30% to avoid being too loud
+    audio.volume = 0.3;
+    audio.currentTime = 0; // Start from beginning
     audioRef.current = audio;
 
-    const playMusic = async () => {
-      try {
-        await audio.play();
-        setIsPlaying(true);
-      } catch (error) {
-        console.log("Auto-play blocked by browser, will play on first interaction");
-        // Some browsers require user interaction before playing audio
-        // We'll add a click handler to enable music
-        const enableAudio = () => {
-          audio.play().then(() => setIsPlaying(true)).catch(console.error);
-          document.removeEventListener("click", enableAudio);
-        };
-        document.addEventListener("click", enableAudio, { once: true });
+    const thunderAudio = new Audio("/thunder.mp3");
+    thunderAudio.volume = 0.1;
+    thunderAudioRef.current = thunderAudio;
+
+    const playThunder = () => {
+      if (thunderAudioRef.current) {
+        thunderAudioRef.current.currentTime = 0;
+        thunderAudioRef.current.play().catch(console.error);
       }
     };
 
-    playMusic();
+    const playMusic = () => {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0; // Start from beginning
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+          console.log("Background music started automatically");
+        }).catch(console.error);
+      }
+    };
+
+    const startThunder = () => {
+      setTimeout(playThunder, 3000);
+      thunderIntervalRef.current = setInterval(playThunder, 20000);
+    };
+
+    // Start both music and thunder automatically
+    setTimeout(playMusic, 1000); // Start music after 1 second
+    startThunder();
 
     return () => {
       audio.pause();
       audio.currentTime = 0;
+      if (thunderIntervalRef.current) {
+        clearInterval(thunderIntervalRef.current);
+      }
+      if (thunderAudioRef.current) {
+        thunderAudioRef.current.pause();
+        thunderAudioRef.current.currentTime = 0;
+      }
     };
-  }, []);
+  }, [hasInteracted]);
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -40,8 +63,11 @@ const BackgroundMusic = () => {
         audioRef.current.pause();
         setIsPlaying(false);
       } else {
+        // Ensure we start from beginning
+        audioRef.current.currentTime = 0; // Start from beginning
         audioRef.current.play().then(() => setIsPlaying(true)).catch(console.error);
       }
+      // Note: Thunder continues playing regardless of music state
     }
   };
 

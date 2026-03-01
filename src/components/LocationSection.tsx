@@ -6,7 +6,20 @@ const LocationSection = () => {
 
   return (
     <section id="location" className="py-24 px-6 relative" ref={ref}>
-      <div className="max-w-5xl mx-auto">
+      {/* Background image fitted to section */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ 
+          backgroundImage: 'url(/bg.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      />
+      
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-background/80" />
+      
+      <div className="max-w-5xl mx-auto relative z-10">
         <div className="text-center mb-16 fade-in-section">
           <p className="font-heading text-xs tracking-[0.3em] uppercase text-amber mb-3">Coordinates</p>
           <h2 className="font-display text-5xl md:text-6xl text-metallic">Location</h2>
@@ -57,6 +70,13 @@ const LocationSection = () => {
               loading="lazy"
             />
           </div>
+        </div>
+
+        {/* Copyright notice */}
+        <div className="text-center mt-16 fade-in-section">
+          <p className="text-white text-xs">
+            Copyright © 2026 <a href="https://linkedin.com/in/devansh050607" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-400 transition-colors">Devansh Singh</a> | GHRISTU, Pune
+          </p>
         </div>
       </div>
     </section>

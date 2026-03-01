@@ -268,4 +268,102 @@
     opacity: 1;
     transform: translateX(0);
   }
+
+  /* Landing page specific animations */
+  @keyframes hero-entrance {
+    0% { 
+      opacity: 0; 
+      transform: scale(0.8) translateY(50px);
+      filter: blur(10px);
+    }
+    50% {
+      filter: blur(0);
+    }
+    100% { 
+      opacity: 1; 
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .hero-entrance {
+    animation: hero-entrance 2s ease-out forwards;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 20px hsl(var(--amber) / 0.3),
+                  0 0 40px hsl(var(--amber) / 0.2),
+                  0 0 60px hsl(var(--amber) / 0.1);
+    }
+    50% { 
+      box-shadow: 0 0 30px hsl(var(--amber) / 0.5),
+                  0 0 60px hsl(var(--amber) / 0.3),
+                  0 0 90px hsl(var(--amber) / 0.2);
+    }
+  }
+
+  .glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes bat-signal {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(5deg) scale(1.05); }
+    50% { transform: rotate(-5deg) scale(1.1); }
+    75% { transform: rotate(3deg) scale(1.05); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+
+  .bat-signal {
+    animation: bat-signal 8s ease-in-out infinite;
+  }
+
+  /* Landing page transition animations */
+  @keyframes progress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+
+  @keyframes cinematic-zoom {
+    0% { 
+      transform: scale(1);
+      filter: blur(0px);
+    }
+    50% {
+      transform: scale(1.2);
+      filter: blur(2px);
+    }
+    100% { 
+      transform: scale(1.5);
+      filter: blur(8px);
+      opacity: 0;
+    }
+  }
+
+  .cinematic-transition {
+    animation: cinematic-zoom 2s ease-in forwards;
+  }
+
+  @keyframes bat-loading {
+    0%, 100% { 
+      transform: rotate(0deg) scale(1);
+      border-color: hsl(var(--amber));
+    }
+    25% { 
+      transform: rotate(90deg) scale(1.1);
+      border-color: hsl(var(--amber) / 0.8);
+    }
+    50% { 
+      transform: rotate(180deg) scale(1.2);
+      border-color: hsl(var(--amber) / 0.6);
+    }
+    75% { 
+      transform: rotate(270deg) scale(1.1);
+      border-color: hsl(var(--amber) / 0.8);
+    }
+  }
+
+  .bat-loading {
+    animation: bat-loading 2s linear infinite;
+  }
 }
