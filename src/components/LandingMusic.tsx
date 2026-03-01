@@ -1,32 +1,53 @@
 import { useEffect, useRef, useState } from "react";
 
-const LandingMusic = () => {
+interface LandingMusicProps {
+  shouldStart?: boolean;
+}
+
+const LandingMusic = ({ shouldStart = true }: LandingMusicProps) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || !shouldStart) return;
 
     // Set audio properties
     audio.volume = 0.4;
     audio.currentTime = 76; // 1:16 in seconds
 
-    // Try autoplay
-    audio.play().then(() => {
-      setIsPlaying(true);
-      console.log("Landing music started automatically");
-    }).catch(() => {
-      console.log("Autoplay blocked, user needs to click button");
-    });
+    // Function to attempt autoplay
+    const attemptPlay = () => {
+      audio.play().then(() => {
+        setIsPlaying(true);
+        console.log("Landing music started automatically");
+      }).catch(() => {
+        console.log("Autoplay blocked, retrying after user interaction...");
+        // Add a one-time click listener to start music on first interaction
+        const startMusicOnInteraction = () => {
+          audio.play().then(() => {
+            setIsPlaying(true);
+            console.log("Landing music started on user interaction");
+          }).catch(console.error);
+          document.removeEventListener('click', startMusicOnInteraction);
+          document.removeEventListener('keydown', startMusicOnInteraction);
+        };
+        document.addEventListener('click', startMusicOnInteraction, { once: true });
+        document.addEventListener('keydown', startMusicOnInteraction, { once: true });
+      });
+    };
+
+    // Delay the attempt to ensure page is fully loaded
+    const timer = setTimeout(attemptPlay, 100);
 
     return () => {
+      clearTimeout(timer);
       if (audio) {
         audio.pause();
         audio.currentTime = 0;
       }
     };
-  }, []);
+  }, [shouldStart]);
 
   const toggleMusic = () => {
     const audio = audioRef.current;
