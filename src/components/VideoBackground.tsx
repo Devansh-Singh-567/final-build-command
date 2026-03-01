@@ -1,9 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const VideoBackground = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,22 +14,8 @@ const VideoBackground = () => {
       // Hide video background when reaching location section
       if (scrollPosition > heroHeight * 0.8 && scrollPosition < locationTop - window.innerHeight) {
         setIsVisible(true);
-        // Auto play video when visible
-        if (videoRef.current && !isPlaying) {
-          videoRef.current.playbackRate = 1.2; // Reduce speed to 1.2x
-          videoRef.current.muted = true; // Ensure muted
-          videoRef.current.play().catch(err => {
-            console.log('Video autoplay failed:', err);
-          });
-          setIsPlaying(true);
-        }
       } else {
         setIsVisible(false);
-        // Pause video when not visible
-        if (videoRef.current && isPlaying) {
-          videoRef.current.pause();
-          setIsPlaying(false);
-        }
       }
     };
 
@@ -41,7 +25,7 @@ const VideoBackground = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isPlaying]);
+  }, []);
 
   return (
     <div 
@@ -49,19 +33,17 @@ const VideoBackground = () => {
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      <video
-        ref={videoRef}
+      <iframe
+        src="https://player.vimeo.com/video/1169258615?background=1&autoplay=1&loop=1&muted=1"
         className="absolute inset-0 w-full h-full object-cover"
-        src="/video.mp4"
-        loop
-        muted
-        playsInline
+        frameBorder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
         style={{
-          filter: 'brightness(0.7) contrast(1.1)', // Default brightness
+          filter: 'brightness(1.2) contrast(1.1)',
         }}
       />
       {/* Mobile brightness overlay - only on mobile */}
-      <div className="md:hidden absolute inset-0 bg-white/20" />
+      <div className="md:hidden absolute inset-0 bg-white/40" />
       {/* Dark overlay for better text readability */}
       <div className="absolute inset-0 bg-black/30" />
     </div>
